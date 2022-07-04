@@ -1,12 +1,21 @@
 import { Box, Avatar, Stack, Container } from "@mui/material";
-import AddAvatar from "../viaUrl/components/CreatePageComponents/AddAvatar";
-import LinkList from "../viaUrl/components/CreatePageComponents/LinkList";
-import RenderAvatar from "../viaUrl/components/RenderPageComponents/RenderAvatar";
-import RenderLinkList from "../viaUrl/components/RenderPageComponents/RenderLinkList";
-import { bgColor } from "../viaUrl/components/CreatePageComponents/helperFunctions/helpers";
+
+import RenderAvatar from "../components/RenderPageComponents/RenderAvatar";
+import RenderLinkList from "../components/RenderPageComponents/RenderLinkList";
+import { bgColor } from "../components/CreatePageComponents/helperFunctions/helpers";
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function RenderPage(props) {
-  const { config } = props;
-  let pageColor = bgColor(config.background, config.opacity, config.brightness);
+  const { data, error } = useSWR("/api/RenderPage", fetcher);
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+  console.log(data);
+  let pageColor = bgColor(
+    data.configData.background,
+    data.configData.opacity,
+    data.configData.brightness
+  );
   return (
     <Box
       bgcolor={pageColor.color}
@@ -33,9 +42,17 @@ export default function RenderPage(props) {
           alignContent: "center",
         }}
       >
-        <Stack alignItems={"center"} spacing={5} direction={config.template}>
-          {config.avatars === 1 ? <RenderAvatar config={config} /> : null}
-          {config.links.num > 0 ? <RenderLinkList config={config} /> : null}
+        <Stack
+          alignItems={"center"}
+          spacing={5}
+          direction={data.configData.template}
+        >
+          {data.configData.avatars === 1 ? (
+            <RenderAvatar config={data.configData} />
+          ) : null}
+          {data.configData.links.num > 0 ? (
+            <RenderLinkList config={data.configData} />
+          ) : null}
         </Stack>
       </Box>
     </Box>

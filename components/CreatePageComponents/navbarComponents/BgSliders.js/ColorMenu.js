@@ -3,9 +3,12 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import {
+  KeyboardArrowRightIcon,
+  KeyboardArrowLeftIcon,
+} from "@mui/icons-material";
 import { colorList } from "./data/colorList";
-import { KeyboardArrowLeftIcon } from "@mui/icons-material/KeyboardArrowLeft";
+
 import { Box, Stack, Typography } from "@mui/material";
 const StyledMenu = styled((props) => (
   <Menu
@@ -76,7 +79,6 @@ export default function ColorMenu(props) {
         aria-expanded={open ? "true" : undefined}
         disableElevation
         onClick={handleClick}
-        endIcon={open ? <KeyboardArrowLeft /> : <KeyboardArrowRightIcon />}
       >
         Select Bg Color
       </Button>

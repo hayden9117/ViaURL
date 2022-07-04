@@ -42,13 +42,13 @@ export const ViaHeader = () => {
           <Box sx={{ mt: "auto", mb: "auto" }}>
             <ViaHeaderSVG width="500" height="500" />
           </Box>
-          <Stack
+          <Box
             sx={{
-              width: "100%",
-              height: "100%",
-              mr: "10%",
-              mt: "auto",
-              mb: "auto",
+              display: "Flex",
+              padding: 5,
+              flexDirection: "column",
+
+              alignSelf: "center",
             }}
             direction="column"
             alignItems="center"
@@ -67,7 +67,7 @@ export const ViaHeader = () => {
                 </ButtonBase>
               </Box>
             ))}
-          </Stack>
+          </Box>
         </StyledToolbar>
       </AppBar>
     </>

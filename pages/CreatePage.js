@@ -5,11 +5,12 @@ import CreatePageNav from "../components/CreatePageComponents/CreatePageNav";
 import { PageEditor } from "../components/CreatePageComponents/PageEditor";
 import useConfig from "../components/CreatePageComponents/UseConfig";
 import { bgColor } from "../components/CreatePageComponents/helperFunctions/helpers";
+import { useEffect } from "react";
+import useSWR from "swr";
 
 function CreatePage() {
   const { token, setToken } = useViaToken();
   const { config, setConfig } = useConfig();
-
   if (!token) {
     return (
       <Container
@@ -36,6 +37,7 @@ function CreatePage() {
       </Container>
     );
   } else {
+    console.log(token);
     let pageColor = bgColor(
       config.background,
       config.opacity,
@@ -58,6 +60,7 @@ function CreatePage() {
           maxWidth="m"
           disableGutters={true}
         >
+          TEST
           <PageEditor
             config={config}
             setConfig={setConfig}

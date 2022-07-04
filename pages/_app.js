@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
+import useViaToken from "../components/UseViaToken";
+import useConfig from "../components/CreatePageComponents/UseConfig";
 
 // Client-side cache shared for the whole session
 // of the user in the browser.
@@ -14,6 +16,8 @@ const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  // const { token, setToken } = useViaToken();
+  // const { config, setConfig } = useConfig();
 
   return (
     <CacheProvider value={emotionCache}>

@@ -1,6 +1,13 @@
 import React from "react";
-import { Box, Avatar, ListItem, Typography, Button } from "@mui/material";
-import { TextField } from "@material-ui/core";
+import {
+  Box,
+  Avatar,
+  ListItem,
+  Typography,
+  Button,
+  TextField,
+} from "@mui/material";
+
 import { useState } from "react";
 
 export default function RenderAvatar(props) {

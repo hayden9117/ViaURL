@@ -11,7 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { KeyboardArrowUp } from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowUp from "@mui/icons-material/";
 import { IconButton, Stack, Typography } from "@mui/material";
 import BgSlider from "./BgSliders.js/BgSliders";
 import ColorMenu from "./BgSliders.js/ColorMenu";
@@ -69,54 +69,55 @@ const Drawer = styled(SwipeableDrawer, {
 
 export default function TopDrawer(props) {
   const { openTop, setOpenTop, config, setConfig } = props;
-  const [color, setColor] = React.useState(config.background);
+  const [color, setColor] = useState(config.background);
+  console.log(config);
+  if (!config) return <div>Loading...</div>;
   useEffect(() => {}, [config]);
-  const handleClick = () => {
-    alert("save");
-  };
+  // const handleClick = () => {
+  //   alert("save");
+  // };
 
   return (
-    <div>
-      <Drawer BackdropProps={{ invisible: true }} anchor={"top"} open={openTop}>
-        <DrawerHeader sx={{ width: 240 }}>
-          <IconButton sx={{ color: "black" }} onClick={() => setOpenTop(false)}>
-            <KeyboardArrowUp />
-            <Typography variant={"h4"} color={config.background}>
-              {`${config.background}${config.opacity}`}
-            </Typography>
-          </IconButton>
-        </DrawerHeader>
-        <Divider sx={{ mt: 5 }} />
-        <List>
-          <ListItem disablePadding sx={{ display: "block", ml: 3 }}>
-            <ColorMenu color={color} setColor={setColor} />
-            <Divider sx={{ mt: 5 }} />
-            <BgSlider
-              color={color}
-              setColor={setColor}
-              config={config}
-              setConfig={setConfig}
-            />
-            <Divider sx={{ mt: 5 }} />
-            <Typography>Opacity</Typography>
-            <OpacitySlider
-              color={color}
-              setColor={setColor}
-              config={config}
-              setConfig={setConfig}
-            />
-            <Typography>Brightness</Typography>
-            <LightDark
-              color={color}
-              setColor={setColor}
-              config={config}
-              setConfig={setConfig}
-            />
-          </ListItem>
+    <Drawer BackdropProps={{ invisible: true }} anchor={"top"} open={openTop}>
+      <DrawerHeader sx={{ width: 240 }}>
+        <IconButton sx={{ color: "black" }} onClick={() => setOpenTop(false)}>
+          close
+          {/* <Typography variant={"h4"} color={config.background}>
+            {`${config.background}${config.opacity}`}
+          </Typography> */}
+        </IconButton>
+      </DrawerHeader>
+      <Divider sx={{ mt: 5 }} />
+      <List>
+        <ListItem disablePadding sx={{ display: "block", ml: 3 }}>
+          <ColorMenu color={color} setColor={setColor} />
+          <Divider sx={{ mt: 5 }} />
+          <BgSlider
+            color={color}
+            setColor={setColor}
+            config={config}
+            setConfig={setConfig}
+          />
+          <Divider sx={{ mt: 5 }} />
+          <Typography>Opacity</Typography>
+          <OpacitySlider
+            color={color}
+            setColor={setColor}
+            config={config}
+            setConfig={setConfig}
+          />
+          <Typography>Brightness</Typography>
+          <LightDark
+            color={color}
+            setColor={setColor}
+            config={config}
+            setConfig={setConfig}
+          />
+        </ListItem>
 
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <>
-              <Button
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <>
+            {/* <Button
                 id="demo-customized-Button"
                 aria-haspopup="true"
                 disableElevation
@@ -127,11 +128,10 @@ export default function TopDrawer(props) {
                 </Typography>
 
                 <SaveSvg />
-              </Button>
-            </>
-          </ListItem>
-        </List>
-      </Drawer>
-    </div>
+              </Button> */}
+          </>
+        </ListItem>
+      </List>
+    </Drawer>
   );
 }

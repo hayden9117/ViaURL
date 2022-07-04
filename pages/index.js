@@ -7,15 +7,13 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>ViaUrl</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          <ViaHeader />
-        </h1>
-
+        <div className={styles.title}></div>
+        <ViaHeader />
         <AboutProject />
       </main>
     </div>

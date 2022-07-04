@@ -13,8 +13,25 @@ import React, { useState } from "react";
 
 import SignUp from "../components/signup/SignUp";
 
+const fetcher = (url, bodyObject) =>
+  fetch(url, {
+    credentials: "include",
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      charset: "UTF-8",
+    },
+    body: JSON.stringify(bodyObject),
+  })
+    .then((res) => res.json())
+    .then((res) => res)
+    .catch(function () {
+      console.log("no token");
+    });
+
 function ViaLogin(props) {
   const { setToken, setConfig } = props;
+
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [signUp, setSignUp] = useState(false);
@@ -22,37 +39,10 @@ function ViaLogin(props) {
   let bodyObject = { username: userName, password: password };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    fetch(`https://richiehayden-portfolio-backend.herokuapp.com/viaLogin`, {
-      credentials: "include",
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        charset: "UTF-8",
-      },
-      body: JSON.stringify(bodyObject),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "No match found, create new user.") {
-          alert(result.message);
-        }
-
-        if (result.token) {
-          console.log(result.config);
-          setConfig(result.config);
-          setToken(result.token);
-
-          window.location.reload(true);
-        }
-
-        if (result.message === "incorrect password") {
-          alert(result.message);
-        }
-      })
-      .catch(function () {
-        console.log("no token");
-      });
+    let data = await fetcher("./api/ViaLogin", bodyObject);
+    console.log(data);
+    setToken(data.token);
+    setConfig(data.config);
   };
   const handleSignUp = () => {
     setSignUp(!signUp);
@@ -184,3 +174,34 @@ ViaLogin.propTypes = {
 };
 
 export default ViaLogin;
+
+// fetch(`https://richiehayden-portfolio-backend.herokuapp.com/viaLogin`, {
+//   credentials: "include",
+//   method: "post",
+//   headers: {
+//     "Content-Type": "application/json",
+//     charset: "UTF-8",
+//   },
+//   body: JSON.stringify(bodyObject),
+// })
+//   .then((response) => response.json())
+//   .then((result) => {
+//     if (result.message === "No match found, create new user.") {
+//       alert(result.message);
+//     }
+
+//     if (result.token) {
+//       console.log(result.config);
+//       setConfig(result.config);
+//       setToken(result.token);
+
+//       window.location.reload(true);
+//     }
+
+//     if (result.message === "incorrect password") {
+//       alert(result.message);
+//     }
+//   })
+//   .catch(function () {
+//     console.log("no token");
+//   });

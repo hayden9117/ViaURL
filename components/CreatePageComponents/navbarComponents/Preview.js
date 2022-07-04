@@ -7,7 +7,7 @@ export const Preview = (props) => {
       <Button
         id="demo-customized-Button"
         aria-haspopup="true"
-        href={`http://${window.location.hostname}:3000/ViaURL/${token.username}`}
+        href={`http://${window.location.hostname}:3000/RenderPage`}
         disableElevation
       >
         <PreviewSVG />

@@ -177,7 +177,7 @@ export default function CreatePageNav(props) {
                 ...(open && { display: "none" }),
               }}
             >
-              <ViaHeaderSVG width={"50"} height={"50"} />
+              back
             </IconButton>
           </Box>
           <Box

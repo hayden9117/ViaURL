@@ -9,7 +9,7 @@ export const AboutProject = () => {
         bgcolor: "background.paper",
         width: "85%",
         height: "100vh",
-
+        mt: 5,
         ml: "auto",
         mr: "auto",
         padding: "10px 10px 10px 10px",
@@ -51,15 +51,11 @@ export const AboutProject = () => {
               },
             }}
           >
-            /this will be an inspiration segment, explaining why i chose this
-            project, and how i went about it/ Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            I really wanted to challenge myself with this one; I picked a
+            long-term project which would inevitably lead me down a path of
+            trying to find the answers to questions that may not be readily
+            available. This project will force me to re-frame my approach to
+            researching information and writing code.
           </Typography>
         </Stack>
       </Box>

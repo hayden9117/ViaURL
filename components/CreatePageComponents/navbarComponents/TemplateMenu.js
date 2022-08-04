@@ -4,10 +4,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
-import Divider from "@mui/material/Divider";
-import ArchiveIcon from "@mui/icons-material/Archive";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Template } from "../tool-icons/NavSVGS";
 const StyledMenu = styled((props) => (
@@ -74,6 +71,7 @@ export default function TemplateMenu(props) {
           opacity: config.opacity,
           template: "row",
           brightness: config.brightness,
+          colorList: config.colorList,
         });
         break;
       case "column":
@@ -84,6 +82,7 @@ export default function TemplateMenu(props) {
           opacity: config.opacity,
           template: "column",
           brightness: config.brightness,
+          colorList: config.colorList,
         });
         break;
       default:

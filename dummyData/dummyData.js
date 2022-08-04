@@ -7,6 +7,7 @@ export const configData = [
     opacity: "ff",
     template: "column",
     brightness: 0,
+    colorList: [],
   },
   {
     config_id: 2,
@@ -16,6 +17,7 @@ export const configData = [
     opacity: "ff",
     template: "column",
     brightness: 0,
+    colorList: [],
   },
   {
     config_id: 3,
@@ -25,13 +27,14 @@ export const configData = [
     opacity: "ff",
     template: "column",
     brightness: 0,
+    colorList: [],
   },
 ];
 
 export const tokenData = [
   {
     user_id: 1,
-    username: "user1",
+    username: "hayden9117",
     password: "password1",
     numLinks: 2,
     config_id: 1,

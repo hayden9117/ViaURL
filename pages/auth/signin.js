@@ -1,3 +1,4 @@
+import { getProviders, getSession, signIn, useSession } from "next-auth/react";
 import {
   Box,
   TextField,
@@ -16,8 +17,8 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { getSession, signIn, useSession } from "next-auth/react";
-// import SignUp from "../../components/signup/SignUp";
+
+import SignUp from "../../components/signup/SignUp";
 import Router from "next/router";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -41,38 +42,37 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-export default function ViaLogin() {
+export default function SignIn({ providers }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [signUp, setSignUp] = useState(false);
   const { data: session, status } = useSession();
 
+  if (session) Router.push("/");
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(event);
     const data = new FormData(event.currentTarget);
+    console.log(data);
     let bodyObject = {
       email: data.get("email"),
       password: data.get("password"),
     };
-    console.log(data);
-    if (data.get("email")) {
-      return fetch("http://localhost:3000/api/Users/getUser", {
-        credentials: "include",
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          charset: "UTF-8",
-        },
-        body: JSON.stringify(bodyObject),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-        });
-    }
-  };
-  const handleGitHub = async (e) => {
-    signIn();
+    if (data.get("github")) bodyObject.github = data.get("github");
+
+    return fetch("http://localhost:3000/api/Users/getUser", {
+      credentials: "include",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        charset: "UTF-8",
+      },
+      body: JSON.stringify(bodyObject),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });
   };
 
   const handleSignUp = () => {
@@ -145,13 +145,14 @@ export default function ViaLogin() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Button
-                    className="loginSubmit"
-                    type="submit"
-                    onClick={handleGitHub}
-                  >
-                    Sign In With GitHub
-                  </Button>
+                  {Object.values(providers).map((provider) => (
+                    <div key={provider.name}>
+                      <Button id="github" onClick={() => signIn(provider.id)}>
+                        Sign in with {provider.name}
+                      </Button>
+                    </div>
+                  ))}
+
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
@@ -171,6 +172,9 @@ export default function ViaLogin() {
   );
 }
 
-// ViaLogin.propTypes = {
-//   setToken: PropTypes.func.isRequired,
-// };
+export async function getServerSideProps(context) {
+  const providers = await getProviders();
+  return {
+    props: { providers },
+  };
+}

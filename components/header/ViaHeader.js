@@ -11,6 +11,7 @@ import {
   ButtonBase,
   Stack,
 } from "@mui/material";
+import { signOut } from "next-auth/react";
 
 import ViaHeaderSVG from "./headerSVG/ViaHeaderSVG";
 
@@ -27,12 +28,13 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-const headerLinks = [
-  { label: "Create a personal viaURL page", id: 1, url: "CreatePage" },
-  { label: "Sign in to your viaURL account", id: 2, url: "ViaLogin" },
-  { label: "View a demo page", id: 2, url: "demo" },
-];
-export const ViaHeader = () => {
+export const ViaHeader = (props) => {
+  const { session, status } = props;
+  let headerLinks = [
+    { label: "Create a personal viaURL page", id: 1, url: "CreatePage" },
+
+    { label: "View a demo page", id: 2, url: "demo" },
+  ];
   return (
     <>
       <CssBaseline />
@@ -54,19 +56,41 @@ export const ViaHeader = () => {
             alignItems="center"
             spacing={5}
           >
-            {headerLinks.map((link) => (
-              <Box
-                sx={{
-                  paddingRight: 2,
-                }}
-              >
-                <ButtonBase href={`${link.url}`}>
-                  <Typography variant="h3" color="#3F3D3D" key={link.id}>
-                    {link.label}
-                  </Typography>
-                </ButtonBase>
-              </Box>
-            ))}
+            {session ? (
+              <Typography
+                variant="h3"
+                color="#3F3D3D"
+                sx={{ p: 2 }}
+              >{`Welcome ${session.user.name}!`}</Typography>
+            ) : null}
+
+            {session ? (
+              <ButtonBase href={`CreatePage`}>
+                <Typography variant="h3" color="#3F3D3D">
+                  Edit your personal viaUrl page
+                </Typography>
+              </ButtonBase>
+            ) : (
+              <ButtonBase href="demo">
+                <Typography variant="h3" color="#3F3D3D">
+                  View and edit a viaUrl demo page before signing up
+                </Typography>
+              </ButtonBase>
+            )}
+
+            {session ? (
+              <ButtonBase onClick={() => signOut()}>
+                <Typography variant="h3" color="#3F3D3D">
+                  sign out
+                </Typography>
+              </ButtonBase>
+            ) : (
+              <ButtonBase href="auth/signin">
+                <Typography variant="h3" color="#3F3D3D">
+                  sign in
+                </Typography>
+              </ButtonBase>
+            )}
           </Box>
         </StyledToolbar>
       </AppBar>

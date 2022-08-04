@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useConfig() {
   const getConfig = () => {
-    let userConfig;
+    let userConfig: any;
     if (typeof window !== "undefined") {
       const configString = localStorage.getItem("config");
       userConfig = JSON.parse(configString);

@@ -8,14 +8,19 @@ import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
 import useViaToken from "../components/UseViaToken";
 import useConfig from "../components/CreatePageComponents/UseConfig";
-
+import { SessionProvider } from "next-auth/react";
 // Client-side cache shared for the whole session
 // of the user in the browser.
 
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const {
+    session,
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps,
+  } = props;
   // const { token, setToken } = useViaToken();
   // const { config, setConfig } = useConfig();
 
@@ -24,14 +29,16 @@ export default function MyApp(props) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, 
+      <SessionProvider session={session}>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, 
                 consistent, and simple baseline to
                 build upon. */}
 
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </SessionProvider>
     </CacheProvider>
   );
 }

@@ -11,13 +11,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import KeyboardArrowUp from "@mui/icons-material/";
-import { IconButton, Stack, Typography } from "@mui/material";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import KeyboardArrowUp, {
+  AddCircleOutline,
+  ConfirmationNumberRounded,
+} from "@mui/icons-material/";
+import { IconButton, Stack, Typography, ButtonBase } from "@mui/material";
 import BgSlider from "./BgSliders.js/BgSliders";
 import ColorMenu from "./BgSliders.js/ColorMenu";
 import { SaveSvg } from "../tool-icons/NavSVGS";
 import OpacitySlider from "./BgSliders.js/opacity/OpacitySlider";
 import LightDark from "./BgSliders.js/opacity/LightDark";
+import { colorList } from "./BgSliders.js/data/colorList";
 const drawerWidth = 240;
 const DrawerHeader = styled("div")(({ theme }) => ({
   width: 240,
@@ -70,21 +75,82 @@ const Drawer = styled(SwipeableDrawer, {
 export default function TopDrawer(props) {
   const { openTop, setOpenTop, config, setConfig } = props;
   const [color, setColor] = useState(config.background);
-  console.log(config);
+  const [newColorList, setNewColorList] = useState(config.colorList);
+
   if (!config) return <div>Loading...</div>;
   useEffect(() => {}, [config]);
-  // const handleClick = () => {
-  //   alert("save");
-  // };
+
+  const checkColor = (colorCheck) => {
+    if (config.colorList.length === 3) return false;
+    config.colorList.forEach((c) => {
+      if (c === colorCheck) return true;
+      return false;
+    });
+  };
+
+  const arr = [];
+  console.log(config);
+  for (let i = 0; i < config.colorList.length; i++) {
+    arr.push(config.colorList[i]);
+  }
+
+  const handleRemove = (index) => {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === config.colorList[index]) {
+        arr.splice(i, 1);
+      }
+    }
+
+    arr.splice(index, 1);
+
+    setConfig({
+      links: config.links,
+      avatars: config.avatars,
+      background: config.background,
+      opacity: config.opacity,
+      template: config.template,
+      brightness: config.brightness,
+      colorList: [...arr],
+    });
+  };
+
+  const handleColorAdd = (newColor) => {
+    if (config.colorList.length >= 3) {
+      alert("only 3 colors can be added");
+      return 0;
+    }
+
+    arr.push(newColor);
+    setConfig({
+      links: config.links,
+      avatars: config.avatars,
+      background: config.background,
+      opacity: config.opacity,
+      template: config.template,
+      brightness: config.brightness,
+      colorList: [...arr],
+    });
+  };
+  const handleColorRemove = () => {
+    arr.pop();
+    setConfig({
+      links: config.links,
+      avatars: config.avatars,
+      background: config.background,
+      opacity: config.opacity,
+      template: config.template,
+      brightness: config.brightness,
+      colorList: [...arr],
+    });
+  };
 
   return (
     <Drawer BackdropProps={{ invisible: true }} anchor={"top"} open={openTop}>
       <DrawerHeader sx={{ width: 240 }}>
         <IconButton sx={{ color: "black" }} onClick={() => setOpenTop(false)}>
-          close
-          {/* <Typography variant={"h4"} color={config.background}>
+          <Typography variant={"h4"} color={config.background}>
             {`${config.background}${config.opacity}`}
-          </Typography> */}
+          </Typography>
         </IconButton>
       </DrawerHeader>
       <Divider sx={{ mt: 5 }} />
@@ -117,20 +183,40 @@ export default function TopDrawer(props) {
 
         <ListItem disablePadding sx={{ display: "block" }}>
           <>
-            {/* <Button
-                id="demo-customized-Button"
-                aria-haspopup="true"
-                disableElevation
-                onClick={handleClick}
-              >
-                <Typography sx={{ color: "black", paddingRight: 2 }}>
-                  Save Color Config
-                </Typography>
-
-                <SaveSvg />
-              </Button> */}
+            <Typography sx={{ color: "black", paddingRight: 2 }}>
+              Add Color
+            </Typography>
           </>
         </ListItem>
+        <ButtonBase
+          onClick={() =>
+            handleColorAdd(`${config.background}${config.opacity}`)
+          }
+        >
+          <AddCircleOutline />
+        </ButtonBase>
+        <ButtonBase onClick={() => handleColorRemove()}>
+          <RemoveCircleOutlineIcon />
+        </ButtonBase>
+        {config.colorList.map((color, index) => (
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <Box sx={{ display: "flex" }}>
+              <Typography sx={{ color: "black", paddingRight: 2 }}>
+                {`${index + 1} : ${config.colorList[index]} `}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignSelf: "end",
+
+                  width: "15px",
+                  height: "15px",
+                  backgroundColor: config.colorList[index],
+                }}
+              />
+            </Box>
+          </ListItem>
+        ))}
       </List>
     </Drawer>
   );

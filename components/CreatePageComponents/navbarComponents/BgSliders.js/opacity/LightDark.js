@@ -47,6 +47,7 @@ export default function LightDark(props) {
       opacity: config.opacity,
       template: config.template,
       brightness: bright,
+      colorList: config.colorList,
     });
   };
   // const handleAdd = () => {

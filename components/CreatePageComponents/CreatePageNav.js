@@ -28,6 +28,8 @@ import TemplateMenu from "./navbarComponents/TemplateMenu";
 import { SavePage } from "./navbarComponents/SavePage";
 import { Preview } from "./navbarComponents/Preview";
 import TopDrawer from "./navbarComponents/TopDrawer";
+import { BackToHome } from "./navbarComponents/BackToHome";
+import { KeyboardArrowRightOutlined } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -105,7 +107,14 @@ export default function CreatePageNav(props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [openTop, setOpenTop] = useState(false);
-  const { config, setConfig, token, pageColor } = props;
+  const {
+    config,
+    setConfig,
+    originalConfig,
+    setOriginalConfig,
+    token,
+    pageColor,
+  } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -127,6 +136,7 @@ export default function CreatePageNav(props) {
           opacity: config.opacity,
           template: config.template,
           brightness: config.brightness,
+          colorList: config.colorList,
         });
         break;
       case "Add a Avatar":
@@ -138,18 +148,13 @@ export default function CreatePageNav(props) {
             opacity: config.opacity,
             template: config.template,
             brightness: config.brightness,
+            colorList: config.colorList,
           });
         }
         break;
       case "change bg Color":
         handleDrawerOpen();
         setOpenTop(!openTop);
-        // setConfig({
-        //   links: { num: config.links.num, url: config.links.url },
-        //   avatars: config.avatars,
-        //   background: config.background === "white" ? "red" : "white",
-        //   template: config.template,
-        // });
 
         break;
     }
@@ -177,7 +182,7 @@ export default function CreatePageNav(props) {
                 ...(open && { display: "none" }),
               }}
             >
-              back
+              <KeyboardArrowRightOutlined />
             </IconButton>
           </Box>
           <Box
@@ -190,7 +195,14 @@ export default function CreatePageNav(props) {
             {" "}
             <TemplateMenu config={config} setConfig={setConfig} />
             <Preview token={token} />
-            <SavePage config={config} setConfig={setConfig} token={token} />
+            <SavePage
+              config={config}
+              originalConfig={originalConfig}
+              setOriginalConfig={setOriginalConfig}
+              setConfig={setConfig}
+              token={token}
+            />
+            <BackToHome originalConfig={originalConfig} config={config} />
           </Box>
         </StyledToolbar>
       </AppBar>
@@ -245,6 +257,7 @@ export default function CreatePageNav(props) {
         openTop={openTop}
         config={config}
         setConfig={setConfig}
+        pageColor={pageColor}
       />
     </Box>
   );

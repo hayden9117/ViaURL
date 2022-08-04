@@ -35,6 +35,7 @@ export default function LinkList(props) {
         opacity: config.opacity,
         template: config.template,
         brightness: config.brightness,
+        colorList: config.colorList,
       });
     } else {
       alert("you can only add one avatar.");
@@ -69,6 +70,7 @@ export default function LinkList(props) {
       opacity: config.opacity,
       template: config.template,
       brightness: config.brightness,
+      colorList: config.colorList,
     });
   };
   const handleConfigLinkRemove = () => {
@@ -80,6 +82,7 @@ export default function LinkList(props) {
       opacity: config.opacity,
       template: config.template,
       brightness: config.brightness,
+      colorList: config.colorList,
     });
   };
   return (

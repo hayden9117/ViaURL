@@ -25,3 +25,7 @@ What i learned today:
 - I did some research on page lay out, but i still have ways to go. I realized just how disorganized my file structure really is.
 
 - I realized that i should be focused on the environment im coding in. I cant just utilize functions such as localStorage since this is browser specific. I need to utilize functions based on the instance of the program.
+
+August 3, 2022:
+
+Its been over a month since I last pushed, In this month I was able to connect viaUrl to a mongoDB Atlas. I also worked on some basic user experience by ensuring validity when a user edits and saves their page. I am starting to become familiar with next-auth for sign in and im very excited to see where this leads.

@@ -80,7 +80,7 @@ export default function ColorMenu(props) {
         disableElevation
         onClick={handleClick}
       >
-        Select Bg Color
+        Select Background Color
       </Button>
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
         {colorList.map((item, index) => {

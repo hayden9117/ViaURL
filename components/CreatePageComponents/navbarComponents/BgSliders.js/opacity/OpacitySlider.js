@@ -55,6 +55,7 @@ export default function OpacitySlider(props) {
       opacity: opacity,
       template: config.template,
       brightness: config.brightness,
+      colorList: config.colorList,
     });
   };
 

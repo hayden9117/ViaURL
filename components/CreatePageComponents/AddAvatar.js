@@ -45,6 +45,7 @@ export default function AddAvatar(props) {
       opacity: config.opacity,
       template: config.template,
       brightness: config.brightness,
+      colorList: config.colorList,
     });
   };
   return (
@@ -70,8 +71,10 @@ export default function AddAvatar(props) {
               <StyledAvatar
                 variant="circular"
                 sx={{
-                  height: "40vh",
-                  width: "40vh",
+                  minHeight: "20vh",
+                  minWidth: "20vh",
+                  mAxHeight: "40vh",
+                  mAxWidth: "40vh",
                 }}
               />
             </ThemeProvider>

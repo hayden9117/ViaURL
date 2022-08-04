@@ -7,7 +7,7 @@ module.exports = {
       {
         source: "/", // Notice the slash at the end
         destination: "/ViaHome",
-        permanent: true,
+        permanent: false,
       },
     ];
   },

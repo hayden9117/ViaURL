@@ -13,9 +13,11 @@ export default function useViaToken() {
   const [token, setToken] = useState(getToken());
 
   const saveToken = (userToken) => {
-    localStorage.setItem("viaToken", JSON.stringify(userToken));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("viaToken", JSON.stringify(userToken));
 
-    setToken(userToken);
+      setToken(userToken);
+    }
   };
 
   return {

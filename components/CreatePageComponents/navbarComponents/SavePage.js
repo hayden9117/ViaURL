@@ -1,9 +1,16 @@
-import { Button } from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
+import { useState } from "react";
 import { createPage } from "../../api";
 import { SaveSvg } from "../tool-icons/NavSVGS";
 export const SavePage = (props) => {
-  const { config, setConfig, token } = props;
-  const handleClick = async () => {
+  const { config, setConfig, originalConfig, setOriginalConfig, token } = props;
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSave = async () => {
     setConfig({
       links: { num: config.links.num, url: config.links.url },
       avatars: config.avatars,
@@ -11,14 +18,38 @@ export const SavePage = (props) => {
       opacity: config.opacity,
       template: config.template,
       brightness: config.brightness,
+      colorList: config.colorList,
+    });
+    setOriginalConfig({
+      links: { num: config.links.num, url: config.links.url },
+      avatars: config.avatars,
+      background: config.background,
+      opacity: config.opacity,
+      template: config.template,
+      brightness: config.brightness,
+      colorList: config.colorList,
     });
 
-    let item = config;
-    item.id = token.token;
-    item.pageName = token.username;
-    item.url = `http://${window.location.hostname}:3000/${token.username}`;
-    let promise = await createPage(item);
-    console.log(promise);
+    let item = { token: token, config: config };
+
+    return fetch("http://localhost:3000/api/Users/saveUser", {
+      credentials: "include",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        charset: "UTF-8",
+      },
+      body: JSON.stringify(item),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        handleClose();
+      });
+  };
+
+  const handleClick = () => {
+    setOpen(true);
   };
   return (
     <>
@@ -30,6 +61,33 @@ export const SavePage = (props) => {
       >
         <SaveSvg />
       </Button>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="are you sure you want to save?"
+        action={
+          <>
+            <Button
+              aria-label="close"
+              color="inherit"
+              sx={{ p: 0.5 }}
+              onClick={handleSave}
+            >
+              Yes
+            </Button>
+            <Button
+              aria-label="close"
+              color="inherit"
+              sx={{ p: 0.5 }}
+              onClick={handleClose}
+            >
+              No
+            </Button>
+          </>
+        }
+      />
     </>
   );
 };

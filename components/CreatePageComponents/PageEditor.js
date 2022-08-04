@@ -7,7 +7,12 @@ export const PageEditor = (props) => {
   const { config, setConfig, pageColor } = props;
 
   return (
-    <Box bgcolor="gray" height={"300vh"} width={"300vw"}>
+    <Box
+      bgcolor="gray"
+      height={"100vh"}
+      width={"100vw"}
+      sx={{ position: "fixed" }}
+    >
       <Box
         bgcolor={pageColor.color}
         sx={{
@@ -17,7 +22,7 @@ export const PageEditor = (props) => {
           maxWidth: "50vw",
           ml: "auto",
           mr: "auto",
-          mt: "20%",
+          mt: "15vh",
           overflow: "auto",
           position: "relative",
           ...(config.template === "row" && { alignItems: "center" }),

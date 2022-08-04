@@ -3,19 +3,12 @@ import { Box, Avatar, Stack, Container } from "@mui/material";
 import RenderAvatar from "../components/RenderPageComponents/RenderAvatar";
 import RenderLinkList from "../components/RenderPageComponents/RenderLinkList";
 import { bgColor } from "../components/CreatePageComponents/helperFunctions/helpers";
-import useSWR from "swr";
+import useConfig from "../components/CreatePageComponents/UseConfig";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-export default function RenderPage(props) {
-  const { data, error } = useSWR("/api/RenderPage", fetcher);
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
-  console.log(data);
-  let pageColor = bgColor(
-    data.configData.background,
-    data.configData.opacity,
-    data.configData.brightness
-  );
+export default function RenderPage() {
+  const { config } = useConfig();
+  if (!config) return <div>Loading..</div>;
+  let pageColor = bgColor(config.background, config.opacity, config.brightness);
   return (
     <Box
       bgcolor={pageColor.color}
@@ -42,17 +35,9 @@ export default function RenderPage(props) {
           alignContent: "center",
         }}
       >
-        <Stack
-          alignItems={"center"}
-          spacing={5}
-          direction={data.configData.template}
-        >
-          {data.configData.avatars === 1 ? (
-            <RenderAvatar config={data.configData} />
-          ) : null}
-          {data.configData.links.num > 0 ? (
-            <RenderLinkList config={data.configData} />
-          ) : null}
+        <Stack alignItems={"center"} spacing={5} direction={config.template}>
+          {config.avatars === 1 ? <RenderAvatar config={config} /> : null}
+          {config.links.num > 0 ? <RenderLinkList config={config} /> : null}
         </Stack>
       </Box>
     </Box>

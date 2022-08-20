@@ -1,17 +1,15 @@
 import { Schema, model, models } from "mongoose";
 
-const userSchema = new Schema({
-  email: {
+const pagesSchema = new Schema({
+  pageName: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  email: {
     type: String,
     required: true,
-  },
-  pageName: {
-    type: String,
+    unique: true,
   },
   links: {
     type: Array,
@@ -45,12 +43,8 @@ const userSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  hasPublished: {
-    type: Boolean,
-    required: true,
-  },
 });
 
-const User = models.User || model("User", userSchema);
+const Pages = models.Pages || model("Pages", pagesSchema);
 
-export default User;
+export default Pages;

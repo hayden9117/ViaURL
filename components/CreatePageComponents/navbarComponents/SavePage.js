@@ -19,6 +19,7 @@ export const SavePage = (props) => {
       template: config.template,
       brightness: config.brightness,
       colorList: config.colorList,
+      gradient: config.gradient,
     });
     setOriginalConfig({
       links: { num: config.links.num, url: config.links.url },
@@ -28,10 +29,11 @@ export const SavePage = (props) => {
       template: config.template,
       brightness: config.brightness,
       colorList: config.colorList,
+      gradient: config.gradient,
     });
 
     let item = { token: token, config: config };
-
+    console.log(item.config);
     return fetch("http://localhost:3000/api/Users/saveUser", {
       credentials: "include",
       method: "post",

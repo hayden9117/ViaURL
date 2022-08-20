@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 
 export default function RenderAvatar(props) {
-  const { config } = props;
+  const { config, src } = props;
 
   return (
     <Box
@@ -24,6 +24,7 @@ export default function RenderAvatar(props) {
       <Box alignSelf={"center"}>
         <Avatar
           variant="circular"
+          src={src}
           sx={{
             maxHeight: "40vh ",
             maxWidth: "40vh ",

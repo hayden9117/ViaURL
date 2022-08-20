@@ -1,20 +1,28 @@
-import { Box, Container } from "@mui/material";
-import ViaLogin from "./ViaLogIn";
-import useViaToken from "../components/UseViaToken";
 import CreatePageNav from "../components/CreatePageComponents/CreatePageNav";
 import { PageEditor } from "../components/CreatePageComponents/PageEditor";
-import useConfig from "../components/CreatePageComponents/UseConfig";
 import { bgColor } from "../components/CreatePageComponents/helperFunctions/helpers";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useEffect, useState } from "react";
-import { getSession, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 
 function CreatePage(props) {
   const [config, setConfig] = useState(props.response.config);
   const [originalConfig, setOriginalConfig] = useState(props.response.config);
   const [token, setToken] = useState(props.response.token);
+  const [versionControl, setVersionControl] = useState(() => [config]);
+
   let pageColor = bgColor(config.background, config.opacity, config.brightness);
+
+  useEffect(() => {
+    let versionArr = [];
+
+    versionArr = JSON.parse(sessionStorage.getItem("versionControl")) || [];
+
+    versionArr.push(config);
+
+    sessionStorage.setItem("versionControl", JSON.stringify(versionArr));
+  }, [config]);
 
   return (
     <div className={styles.container}>
@@ -57,7 +65,11 @@ export async function getServerSideProps(context) {
     };
   }
   console.log(session);
-  let bodyObject = { email: session.user.email, password: "password1" };
+  let bodyObject = {
+    email: session.user.email,
+    password: "password1",
+    image: session.user.image,
+  };
 
   console.log(session.user.email);
 

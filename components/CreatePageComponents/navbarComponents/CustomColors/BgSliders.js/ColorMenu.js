@@ -70,7 +70,13 @@ export default function ColorMenu(props) {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        justifySelf: "center",
+        alignSelf: "center",
+      }}
+    >
       <Button
         sx={{ color: "black" }}
         id="demo-customized-button"
@@ -80,9 +86,17 @@ export default function ColorMenu(props) {
         disableElevation
         onClick={handleClick}
       >
-        Select Background Color
+        Select Color
       </Button>
-      <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <StyledMenu
+        sx={{
+          display: "flex",
+          ml: 10,
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
         {colorList.map((item, index) => {
           return (
             <MenuItem
@@ -122,6 +136,6 @@ export default function ColorMenu(props) {
           );
         })}
       </StyledMenu>
-    </div>
+    </Box>
   );
 }

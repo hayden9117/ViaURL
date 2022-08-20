@@ -46,6 +46,7 @@ export default function AddAvatar(props) {
       template: config.template,
       brightness: config.brightness,
       colorList: config.colorList,
+      gradient: config.gradient,
     });
   };
   return (
@@ -70,6 +71,7 @@ export default function AddAvatar(props) {
             <ThemeProvider theme={customTheme}>
               <StyledAvatar
                 variant="circular"
+                src="https://avatars.githubusercontent.com/u/91282781?v=4"
                 sx={{
                   minHeight: "20vh",
                   minWidth: "20vh",

@@ -27,9 +27,11 @@ import { Stack } from "@mui/material";
 import TemplateMenu from "./navbarComponents/TemplateMenu";
 import { SavePage } from "./navbarComponents/SavePage";
 import { Preview } from "./navbarComponents/Preview";
-import TopDrawer from "./navbarComponents/TopDrawer";
+import TopDrawer from "./navbarComponents/CustomColors/TopDrawer";
 import { BackToHome } from "./navbarComponents/BackToHome";
 import { KeyboardArrowRightOutlined } from "@mui/icons-material";
+import { PublishPage } from "./navbarComponents/publish/PublishPage";
+import Undo from "./navbarComponents/undo";
 
 const drawerWidth = 240;
 
@@ -137,6 +139,7 @@ export default function CreatePageNav(props) {
           template: config.template,
           brightness: config.brightness,
           colorList: config.colorList,
+          gradient: config.gradient,
         });
         break;
       case "Add a Avatar":
@@ -149,6 +152,7 @@ export default function CreatePageNav(props) {
             template: config.template,
             brightness: config.brightness,
             colorList: config.colorList,
+            gradient: config.gradient,
           });
         }
         break;
@@ -193,6 +197,7 @@ export default function CreatePageNav(props) {
             }}
           >
             {" "}
+            <Undo setConfig={setConfig} />
             <TemplateMenu config={config} setConfig={setConfig} />
             <Preview token={token} />
             <SavePage
@@ -226,30 +231,40 @@ export default function CreatePageNav(props) {
         </DrawerHeader>
         <Divider sx={{ mt: 5 }} />
         <List>
-          {["Add a URL", "Add a Avatar", "change bg Color"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: "block" }}>
-                <ListItemButton
+          {[
+            "Add a URL",
+            "Add a Avatar",
+            "change bg Color",
+            "Publish your Page",
+          ].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                sx={{
+                  justifyContent: open ? "center" : "center",
+                }}
+                onClick={() => handleConfig(text)}
+              >
+                <ListItemIcon
                   sx={{
-                    justifyContent: open ? "center" : "center",
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
-                  onClick={() => handleConfig(text)}
                 >
-                  <ListItemIcon
-                    sx={{
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {text === "Add a URL" ? <AddURLSVG /> : null}
-                    {text === "Add a Avatar" ? <AvatarAdd /> : null}
-                    {text === "change bg Color" ? <Background /> : null}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+                  {text === "Add a URL" ? <AddURLSVG /> : null}
+                  {text === "Add a Avatar" ? <AvatarAdd /> : null}
+                  {text === "change bg Color" ? <Background /> : null}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              {text === "Publish your Page" ? (
+                <PublishPage
+                  config={config}
+                  setConfig={setConfig}
+                  token={token}
+                />
+              ) : null}
+            </ListItem>
+          ))}
         </List>
       </Drawer>
       <TopDrawer

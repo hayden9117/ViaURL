@@ -78,6 +78,7 @@ export default function BgSlider(props) {
       template: config.template,
       brightness: config.brightness,
       colorList: config.colorList,
+      gradient: config.gradient,
     });
   }, [color]);
   return (

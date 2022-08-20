@@ -9,13 +9,19 @@ export default async function getUser(req, res) {
   try {
     const { db } = await connectToDatabase();
 
-    const user = await db.collection("users").findOne(req.body);
+    const user = await db
+      .collection("users")
+      .findOne({ email: req.body.email, password: req.body.password });
 
     console.log(req.body);
 
     let response = {};
 
-    response.token = { user_id: user._id.toString(), email: user.email };
+    response.token = {
+      user_id: user._id.toString(),
+      email: user.email,
+      avatarImg: req.body.image,
+    };
     response.config = {
       links: { num: user.links.length, url: user.links },
       avatars: user.avatars,
@@ -24,6 +30,8 @@ export default async function getUser(req, res) {
       template: user.template,
       brightness: user.brightness,
       colorList: user.colorList,
+      gradient: user.gradient,
+      hasPublished: user.hasPublished,
     };
     console.log(response);
     res.json({ response });

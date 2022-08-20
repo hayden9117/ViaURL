@@ -72,7 +72,8 @@ export default function ViaLogin() {
     }
   };
   const handleGitHub = async (e) => {
-    signIn();
+    let test = signIn();
+    console.log(test);
   };
 
   const handleSignUp = () => {

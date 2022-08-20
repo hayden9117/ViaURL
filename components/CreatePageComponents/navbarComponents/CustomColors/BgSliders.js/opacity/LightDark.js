@@ -25,7 +25,6 @@ const customTheme = createTheme({
 
 const SliderTest = styled(Slider)`
   ${({ theme, ...args }) => {
-    console.log(args.customColor);
     return `
   color: ${args.customColor};
   height: 8;
@@ -34,46 +33,71 @@ const SliderTest = styled(Slider)`
   }}
 `;
 
-export default function OpacitySlider(props) {
+export default function LightDark(props) {
   const { color, setColor, config, setConfig } = props;
-  const convert = parseInt(config.opacity, 16) / 255;
-  let defaultOp = Math.round(100 * convert);
-  console.log(defaultOp);
-  const [o, setO] = React.useState(defaultOp);
-  const [opacity, setOpacity] = React.useState(config.opacity);
 
-  const handleO = (e) => {
-    setO(e);
-    let num = o * 0.01;
-    num = Math.round(100 * num) / 100;
+  const [bright, setBright] = React.useState(config.brightness);
 
-    setOpacity(`${Math.floor(num * 255).toString(16)}`);
+  const handleBrightness = (e) => {
+    setBright(e);
     setConfig({
       links: { num: config.links.num, url: config.links.url },
       avatars: config.avatars,
       background: color,
-      opacity: opacity,
+      opacity: config.opacity,
       template: config.template,
-      brightness: config.brightness,
+      brightness: bright,
       colorList: config.colorList,
+      gradient: config.gradient,
     });
   };
+  // const handleAdd = () => {
+  //   if (bright <= 30) {
+  //     setBright(bright + 10);
 
-  console.log(opacity);
+  //     setConfig({
+  //       links: { num: config.links.num, url: config.links.url },
+  //       avatars: config.avatars,
+  //       background: color,
+  //       opacity: config.opacity,
+  //       template: config.template,
+  //       brightness: bright,
+  //     });
+  //   }
+  // };
+  // const handleSub = () => {
+  //   if (bright >= -30) {
+  //     setBright(bright - 10);
+
+  //     setConfig({
+  //       links: { num: config.links.num, url: config.links.url },
+  //       avatars: config.avatars,
+  //       background: color,
+  //       opacity: config.opacity,
+  //       template: config.template,
+  //       brightness: bright,
+  //     });
+  //   }
+  // };
+  console.log(bright);
   return (
     <Box>
       <NoSsr>
         <MuiThemeProvider theme={customTheme} color={color}>
           <ThemeProvider theme={customTheme} color={color}>
+            {/* <Button onClick={() => handleSub()}>-</Button> */}
             <SliderTest
               customColor={color}
-              min={10}
-              max={100}
+              step={10}
+              min={-40}
+              max={40}
+              marks
               valueLabelDisplay="auto"
               aria-label={color}
-              value={o}
-              onChange={(o) => handleO(o.target.value)}
+              value={bright}
+              onChange={(e) => handleBrightness(e.target.value)}
             />
+            {/* <Button onClick={() => handleAdd()}>+</Button> */}
           </ThemeProvider>
         </MuiThemeProvider>
       </NoSsr>

@@ -22,6 +22,7 @@ export default async function addUser(req, res) {
     userData.template = "column";
     userData.brightness = 0;
     userData.colorList = [];
+    userData.gradient = false;
     const addUser = await User.create(userData);
     console.log("CREATED DOCUMENT");
 

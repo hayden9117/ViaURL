@@ -1,11 +1,13 @@
 import { Box, Avatar, Stack, Container } from "@mui/material";
+
 import AddAvatar from "./AddAvatar";
 import { getPosition } from "./helperFunctions/getPosition";
 import LinkList from "./LinkList";
 
 export const PageEditor = (props) => {
   const { config, setConfig, pageColor } = props;
-
+  console.log(config.colorList.length);
+  console.log(config.gradient);
   return (
     <Box
       bgcolor="gray"
@@ -14,8 +16,11 @@ export const PageEditor = (props) => {
       sx={{ position: "fixed" }}
     >
       <Box
-        bgcolor={pageColor.color}
         sx={{
+          background:
+            config.gradient && config.colorList.length !== 1
+              ? `Linear-gradient(${config.colorList.map((c) => c)})`
+              : pageColor.color,
           minHeight: "80vh",
           minWidth: "50vw",
           maxHeight: "80vh",

@@ -72,6 +72,7 @@ export default function TemplateMenu(props) {
           template: "row",
           brightness: config.brightness,
           colorList: config.colorList,
+          gradient: config.gradient,
         });
         break;
       case "column":
@@ -83,6 +84,7 @@ export default function TemplateMenu(props) {
           template: "column",
           brightness: config.brightness,
           colorList: config.colorList,
+          gradient: config.gradient,
         });
         break;
       default:
@@ -97,7 +99,6 @@ export default function TemplateMenu(props) {
         aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >

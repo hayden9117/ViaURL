@@ -66,6 +66,8 @@ export default function TemplateMenu(props) {
       case "row":
         setConfig({
           links: { num: config.links.num, url: config.links.url },
+          avatarImg: config.avatarImg,
+          avatarImgs: config.avatarImgs,
           avatars: config.avatars,
           background: config.background,
           opacity: config.opacity,
@@ -78,6 +80,8 @@ export default function TemplateMenu(props) {
       case "column":
         setConfig({
           links: { num: config.links.num, url: config.links.url },
+          avatarImg: config.avatarImg,
+          avatarImgs: config.avatarImgs,
           avatars: config.avatars,
           background: config.background,
           opacity: config.opacity,

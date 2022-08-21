@@ -133,6 +133,8 @@ export default function CreatePageNav(props) {
       case "Add a URL":
         setConfig({
           links: { num: config.links.num + 1, url: [...config.links.url, ""] },
+          avatarImg: config.avatarImg,
+          avatarImgs: config.avatarImgs,
           avatars: config.avatars,
           background: config.background,
           opacity: config.opacity,
@@ -146,6 +148,8 @@ export default function CreatePageNav(props) {
         if (config.avatars < 1) {
           setConfig({
             links: { num: config.links.num, url: config.links.url },
+            avatarImg: config.avatarImg,
+            avatarImgs: config.avatarImgs,
             avatars: config.avatars + 1,
             background: config.background,
             opacity: config.opacity,

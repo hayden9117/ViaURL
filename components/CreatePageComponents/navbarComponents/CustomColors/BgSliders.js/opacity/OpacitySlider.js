@@ -50,6 +50,8 @@ export default function OpacitySlider(props) {
     setOpacity(`${Math.floor(num * 255).toString(16)}`);
     setConfig({
       links: { num: config.links.num, url: config.links.url },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: color,
       opacity: opacity,

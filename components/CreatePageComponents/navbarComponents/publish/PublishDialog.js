@@ -20,6 +20,8 @@ export default function PublishDialog(props) {
   const handleSave = async () => {
     setConfig({
       links: { num: config.links.num, url: config.links.url },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,

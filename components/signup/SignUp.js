@@ -13,10 +13,13 @@ import {
   Box,
   Checkbox,
   Container,
+  Divider,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CssBaseline from "@mui/material/CssBaseline";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { signIn, createUser } from "next-auth/react";
 function Copyright(props) {
   return (
     <Typography
@@ -38,11 +41,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignUp(props, { addUser }) {
-  const { signUp, setSignUp } = props;
+  const { signUp, setSignUp, providers } = props;
   const [matchedPassWord, setMatchedPassword] = useState("");
   const [newPassword, setNewPassword] = useState();
   const [newUserName, setNewUserName] = useState();
   console.log(props);
+
+  const handleAuth = async (provider) => {
+    return fetch("http://localhost:3000/api/Users/addUser", {
+      credentials: "include",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        charset: "UTF-8",
+      },
+      body: JSON.stringify(bodyObject),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.message === "successfully added new entry to database") {
+          alert("successfully added new entry to database, Please Login");
+        }
+      });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -85,11 +108,20 @@ function SignUp(props, { addUser }) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            {Object.values(providers).map((provider) => (
+              <div key={provider.name}>
+                <Button
+                  id={provider.id}
+                  onClick={() => handleSubmit(provider.id)}
+                >
+                  <GitHubIcon />
+                  Sign up with {provider.name}
+                </Button>
+              </div>
+            ))}
+            <Divider />
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign up with Email
             </Typography>
             <Box
               component="form"

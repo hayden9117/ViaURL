@@ -13,6 +13,7 @@ import {
   Grid,
   Container,
   Avatar,
+  Divider,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -100,9 +101,15 @@ export default function ViaLogin() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            {" "}
+            <Button
+              className="loginSubmit"
+              type="submit"
+              onClick={handleGitHub}
+            >
+              Sign In With GitHub
+            </Button>
+            <Divider />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>

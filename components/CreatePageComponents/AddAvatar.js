@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Avatar, ButtonBase } from "@mui/material";
 
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -9,7 +9,8 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-
+import { ViaAvatar } from "./edit_components/ViaEditables";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 const customTheme = createTheme({
   palette: {
     primary: {
@@ -21,25 +22,14 @@ const customTheme = createTheme({
   },
 });
 
-const StyledAvatar = styled(Avatar)`
-  ${({ theme }) => `
-  cursor: pointer;
-  background-color: ${theme.palette.primary.main};
-  transition: ${theme.transitions.create(["background-color", "transform"], {
-    duration: theme.transitions.duration.standard,
-  })};
-  &:hover {
-    background-color: ${theme.palette.secondary.main};
-    transform: scale(1.3);
-  }
-  `}
-`;
-
 export default function AddAvatar(props) {
-  const { config, setConfig } = props;
+  const { config, setConfig, token } = props;
+  const [open, setOpen] = useState(false);
   const handleConfigRemove = () => {
     setConfig({
       links: { num: config.links.num, url: config.links.url },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars - 1,
       background: config.background,
       opacity: config.opacity,
@@ -64,20 +54,19 @@ export default function AddAvatar(props) {
         <ButtonBase onClick={() => handleConfigRemove()}>
           <RemoveCircleOutlineIcon />
         </ButtonBase>
+        <ButtonBase onClick={() => setOpen(true)}>
+          <MoreVertIcon />
+        </ButtonBase>
       </Box>
       <Box sx={{ padding: 5 }} alignSelf={"center"}>
         <NoSsr>
           <MuiThemeProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
-              <StyledAvatar
-                variant="circular"
-                src="https://avatars.githubusercontent.com/u/91282781?v=4"
-                sx={{
-                  minHeight: "20vh",
-                  minWidth: "20vh",
-                  mAxHeight: "40vh",
-                  mAxWidth: "40vh",
-                }}
+              <ViaAvatar
+                open={open}
+                setOpen={setOpen}
+                config={config}
+                setConfig={setConfig}
               />
             </ThemeProvider>
           </MuiThemeProvider>

@@ -11,6 +11,8 @@ export default async function saveUser(req, res) {
     const query = { email: req.body.token.email };
     const update = {
       links: config.links.url,
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,

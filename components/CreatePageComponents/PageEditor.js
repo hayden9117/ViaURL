@@ -5,7 +5,7 @@ import { getPosition } from "./helperFunctions/getPosition";
 import LinkList from "./LinkList";
 
 export const PageEditor = (props) => {
-  const { config, setConfig, pageColor } = props;
+  const { config, setConfig, pageColor, token } = props;
   console.log(config.colorList.length);
   console.log(config.gradient);
   return (
@@ -43,7 +43,11 @@ export const PageEditor = (props) => {
               direction={config.template}
             >
               {config.avatars === 1 ? (
-                <AddAvatar config={config} setConfig={setConfig} />
+                <AddAvatar
+                  config={config}
+                  setConfig={setConfig}
+                  token={token}
+                />
               ) : null}
               {config.links.num > 0 ? (
                 <LinkList config={config} setConfig={setConfig} />

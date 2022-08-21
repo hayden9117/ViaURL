@@ -72,6 +72,8 @@ export default function BgSlider(props) {
 
     setConfig({
       links: { num: config.links.num, url: config.links.url },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: color,
       opacity: config.opacity,

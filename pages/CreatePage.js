@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
 function CreatePage(props) {
-  const [config, setConfig] = useState(props.response.config);
-  const [originalConfig, setOriginalConfig] = useState(props.response.config);
-  const [token, setToken] = useState(props.response.token);
+  const [config, setConfig] = useState(props.config);
+  const [originalConfig, setOriginalConfig] = useState(props.config);
+  const [token, setToken] = useState(props.token);
   const [versionControl, setVersionControl] = useState(() => [config]);
 
   let pageColor = bgColor(config.background, config.opacity, config.brightness);
@@ -44,6 +44,7 @@ function CreatePage(props) {
         />
 
         <PageEditor
+          token={token}
           config={config}
           setConfig={setConfig}
           pageColor={pageColor}
@@ -64,27 +65,24 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log(session);
-  let bodyObject = {
-    email: session.user.email,
-    password: "password1",
-    image: session.user.image,
+  console.log(session.user);
+  const data = { token: session.session.user };
+
+  data.config = {
+    links: { num: session.user.links.length, url: session.user.links },
+    avatarImg: session.user.avatarImg,
+    avatarImgs: session.user.avatarImgs,
+    avatars: session.user.avatars,
+    background: session.user.background,
+    opacity: session.user.opacity,
+    template: session.user.template,
+    brightness: session.user.brightness,
+    colorList: session.user.colorList,
+    gradient: session.user.gradient,
+    hasPublished: session.user.hasPublished,
   };
-
-  console.log(session.user.email);
-
-  let data = await fetch("http://localhost:3000/api/Users/getUser", {
-    credentials: "include",
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      charset: "UTF-8",
-    },
-    body: JSON.stringify(bodyObject),
-  })
-    .then((res) => res.json())
-    .then((res) => res);
   console.log(data);
+
   if (session) {
     return { props: data };
   }

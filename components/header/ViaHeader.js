@@ -11,12 +11,15 @@ import {
   ButtonBase,
   Stack,
 } from "@mui/material";
-import { signOut } from "next-auth/react";
+
+import { TextOptions } from "./headerComponents/TextOptions";
 
 import ViaHeaderSVG from "./headerSVG/ViaHeaderSVG";
 
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  backgroundColor: "#CDCDCD",
+const StyledToolbar = styled(Toolbar)(({ theme, colors }) => ({
+  background: colors
+    ? `linear-gradient(217deg ,${colors.baseColor.hsl}, ${colors.thirdColor.hsl}, ${colors.secondColor.hsl}), linear-gradient(127deg ,${colors.baseColor.hsl}, ${colors.secondColor.hsl}, ${colors.thirdColor.hsl}), linear-gradient(336deg,${colors.secondColor.hsl}, ${colors.thirdColor.hsl}, ${colors.baseColor.hsl})`
+    : "#CDCDCD",
   alignItems: "flex-start",
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(2),
@@ -29,68 +32,27 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export const ViaHeader = (props) => {
-  const { session, status } = props;
-  let headerLinks = [
-    { label: "Create a personal viaURL page", id: 1, url: "CreatePage" },
+  const { session, status, theme } = props;
 
-    { label: "View a demo page", id: 2, url: "demo" },
-  ];
   return (
     <>
       <CssBaseline />
       <AppBar position="static">
-        <StyledToolbar>
+        <StyledToolbar colors={theme}>
           {" "}
-          <Box sx={{ mt: "auto", mb: "auto" }}>
-            <ViaHeaderSVG width="500" height="500" />
-          </Box>
           <Box
             sx={{
-              display: "Flex",
-              padding: 5,
-              flexDirection: "column",
-
-              alignSelf: "center",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              minWidth: "50%",
+              minHeight: "50%",
+              mt: "auto",
+              mb: "auto",
+              display: "flex",
             }}
-            direction="column"
-            alignItems="center"
-            spacing={5}
           >
-            {session ? (
-              <Typography
-                variant="h3"
-                color="#3F3D3D"
-                sx={{ p: 2 }}
-              >{`Welcome ${session.user.name}!`}</Typography>
-            ) : null}
-
-            {session ? (
-              <ButtonBase href={`CreatePage`}>
-                <Typography variant="h3" color="#3F3D3D">
-                  Edit your personal viaUrl page
-                </Typography>
-              </ButtonBase>
-            ) : (
-              <ButtonBase href="demo">
-                <Typography variant="h3" color="#3F3D3D">
-                  View and edit a viaUrl demo page before signing up
-                </Typography>
-              </ButtonBase>
-            )}
-
-            {session ? (
-              <ButtonBase onClick={() => signOut()}>
-                <Typography variant="h3" color="#3F3D3D">
-                  sign out
-                </Typography>
-              </ButtonBase>
-            ) : (
-              <ButtonBase href="auth/signin">
-                <Typography variant="h3" color="#3F3D3D">
-                  sign in
-                </Typography>
-              </ButtonBase>
-            )}
+            <ViaHeaderSVG width="500" height="500" />
+            <TextOptions session={session} />
           </Box>
         </StyledToolbar>
       </AppBar>

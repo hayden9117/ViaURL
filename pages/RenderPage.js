@@ -18,7 +18,7 @@ export default function RenderPage(props) {
           : pageColor.color,
         minHeight: "100vh",
         minWidth: "100vw",
-        maxHeight: "100vh",
+        maxHeight: "110vh",
         maxWidth: "100vw",
         display: "flex",
 
@@ -33,7 +33,7 @@ export default function RenderPage(props) {
           maxHeight: "90vh",
           maxWidth: "90vw",
           display: "flex",
-
+          mt: "15vh",
           justifyContent: "center",
           alignContent: "center",
         }}

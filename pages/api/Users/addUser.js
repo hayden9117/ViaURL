@@ -15,20 +15,22 @@ export default async function addUser(req, res) {
     console.log("CREATING DOCUMENT");
     console.log(req.body);
     let userData = req.body;
+    console.log(userData);
     userData.links = [];
     userData.avatars = 1;
+
     userData.background = "#ff85ad";
     userData.opacity = "ff";
     userData.template = "column";
     userData.brightness = 0;
     userData.colorList = [];
     userData.gradient = false;
+    userData.hasPublished = false;
     const addUser = await User.create(userData);
     console.log("CREATED DOCUMENT");
 
     res.json({ addUser });
   } catch (error) {
     console.log(error);
-    res.json({ error });
   }
 }

@@ -63,6 +63,8 @@ export default function GradientSwitch(props) {
   const handleSwitch = (e) => {
     setConfig({
       links: config.links,
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,

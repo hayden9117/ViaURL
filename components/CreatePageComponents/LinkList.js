@@ -30,6 +30,8 @@ export default function LinkList(props) {
     if (config.avatars <= 1) {
       setConfig({
         links: { num: config.links.num, url: newArr },
+        avatarImg: config.avatarImg,
+        avatarImgs: config.avatarImgs,
         avatars: config.avatars,
         background: config.background,
         opacity: config.opacity,
@@ -66,6 +68,8 @@ export default function LinkList(props) {
   const handleConfigLink = () => {
     setConfig({
       links: { num: config.links.num + 1, url: [...arr, ""] },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,
@@ -79,6 +83,8 @@ export default function LinkList(props) {
     arr.pop();
     setConfig({
       links: { num: config.links.num - 1, url: arr },
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,

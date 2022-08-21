@@ -11,7 +11,7 @@ export default async function getUser(req, res) {
 
     const user = await db
       .collection("users")
-      .findOne({ email: req.body.email, password: req.body.password });
+      .findOne({ email: req.body.email });
 
     console.log(req.body);
 

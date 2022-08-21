@@ -14,15 +14,18 @@ import {
   Grid,
   Container,
   Avatar,
+  Divider,
+  ButtonBase,
 } from "@mui/material";
-import PropTypes from "prop-types";
+
 import React, { useState } from "react";
 
 import SignUp from "../../components/signup/SignUp";
 import Router from "next/router";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 function Copyright(props) {
   return (
     <Typography
@@ -49,6 +52,7 @@ export default function SignIn({ providers }) {
   const { data: session, status } = useSession();
 
   if (session) Router.push("/");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(event);
@@ -82,7 +86,7 @@ export default function SignIn({ providers }) {
   if (signUp) {
     return (
       <>
-        <SignUp signUp={signUp} setSignUp={setSignUp} />
+        <SignUp signUp={signUp} setSignUp={setSignUp} providers={providers} />
       </>
     );
   }
@@ -99,9 +103,32 @@ export default function SignIn({ providers }) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            {Object.values(providers).map((provider) => (
+              <div key={provider.name}>
+                <Box sx={{ width: "50vh", height: "5vh" }}>
+                  <ButtonBase
+                    sx={{
+                      pt: 1,
+                      pb: 1,
+                      bgcolor:
+                        provider.id === "github" ? " #000000" : "#2340F7",
+                      color: "#f1f1f1",
+                      width: "inherit",
+                    }}
+                    id={provider.id}
+                    onClick={() => {
+                      signIn(provider.id);
+                    }}
+                  >
+                    {provider.id === "github" ? <GitHubIcon /> : <GoogleIcon />}
+                    Sign in with {provider.name}
+                  </ButtonBase>
+                </Box>
+              </div>
+            ))}
+            <br />
+            <Divider width="150%" />
+            <br />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -145,14 +172,6 @@ export default function SignIn({ providers }) {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  {Object.values(providers).map((provider) => (
-                    <div key={provider.name}>
-                      <Button id="github" onClick={() => signIn(provider.id)}>
-                        Sign in with {provider.name}
-                      </Button>
-                    </div>
-                  ))}
-
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
@@ -174,6 +193,8 @@ export default function SignIn({ providers }) {
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
+
+  console.log(providers);
   return {
     props: { providers },
   };

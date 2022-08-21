@@ -48,6 +48,7 @@ export const ColorCreator = (props) => {
     arr.push(newColor);
     setConfig({
       links: config.links,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,
@@ -61,6 +62,8 @@ export const ColorCreator = (props) => {
     arr.pop();
     setConfig({
       links: config.links,
+      avatarImg: config.avatarImg,
+      avatarImgs: config.avatarImgs,
       avatars: config.avatars,
       background: config.background,
       opacity: config.opacity,

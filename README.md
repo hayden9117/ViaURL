@@ -29,3 +29,29 @@ What i learned today:
 August 3, 2022:
 
 Its been over a month since I last pushed, In this month I was able to connect viaUrl to a mongoDB Atlas. I also worked on some basic user experience by ensuring validity when a user edits and saves their page. I am starting to become familiar with next-auth for sign in and im very excited to see where this leads.
+
+August 21, 2022:
+
+added better user authorization functionality, started on the redo/undo feature but still need to work out some edge cases. i will have to start migratin to TypeScript soon and i REALLY wish that I started up the project with it. I'm avoidinging testing but ill pick a day when i really set up a good dev environment. once I have a solid proto type going ill release a beta version which will require a token to get pre release access. this will specifically be designated tofor any collaborators who want to join in.
+
+## How to boot UP the project
+
+initiating the project:
+
+start the project with "npm run dev", dont forget to npm i before hand :)
+set up a local environment variable file and name it ".env.local"
+
+here is the format for setting up you local environment variables
+
+/_ authorize git hub to allow access to local O auth follow this link for helphttps://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app _/
+
+GITHUB_ID= // git hub ID goes here
+GITHUB_SECRET= // git hub secret goes here
+DB_USER= // this is in regards to the mongo db atlas, dm me for permissions
+DB_PASSWORD= // this is in regards to the mongo db atlas, dm me for permissions
+MONGODB_DB=// will need to be granted access
+MONGODB_URI=// will need to be granted access
+NODE_ENV=// you can just put "development" here
+
+GOOGLE_CLIENT_ID= // Will need to be granted access
+GOOGLE_CLIENT_SECRET= // will need to be granted access

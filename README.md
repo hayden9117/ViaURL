@@ -58,3 +58,6 @@ GOOGLE_CLIENT_ID= // Will need to be granted access
 GOOGLE_CLIENT_SECRET= // will need to be granted access
 
 ```
+
+
+### Project has been re-implemented && upgraded in a private repository
